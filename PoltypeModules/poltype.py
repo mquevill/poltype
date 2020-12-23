@@ -24,6 +24,7 @@ from socket import gethostname
 import subprocess
 import openbabel
 import shutil
+import distutils.util
 import time
 import copy
 import getopt
@@ -514,11 +515,7 @@ class PolarizableTyper():
         self.espmethod=self.SanitizeQMMethod(self.espmethod,False)     
        
     def GrabBoolValue(self, value):
-        if value.lower() == 'true':
-            return True
-        if value.lower() == 'false':
-            return False
-        raise ValueError('Could not convert "{}" into a boolean!'.format(value))
+        return bool(distutils.util.strtobool(value))
 
     def SanitizeQMMethod(self,method,optmethodbool):
         if method[-1]=='D': # assume DFT, gaussian likes D, PSI4 likes -D
